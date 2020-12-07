@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class GalleryAdapter extends BaseAdapter {
     int[] imgRes = {R.drawable.poster01, R.drawable.poster02,R.drawable.poster03,R.drawable.poster04,R.drawable.poster05,
@@ -16,6 +18,11 @@ public class GalleryAdapter extends BaseAdapter {
     };
     Context context;
     ImageView imgvMain;
+    String[] posterName = {"극한직업", "백두산", "어벤져스", "엑시트", "완득이", "황해",
+            "너의 이름은", "히말라야", "국제시장", "토이스토리4", "겨울왕국", "업",
+            "몬스터 주식회사", "하울의 움직이는 성", "스폰지밥", "스머프"
+    };
+
 
     public GalleryAdapter(Context context, ImageView imgvMain) {
         this.context = context;
@@ -44,6 +51,8 @@ public class GalleryAdapter extends BaseAdapter {
         imgv.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imgv.setPadding(5, 5, 5, 5);
         imgv.setImageResource(imgRes[position]);
+        final View toastView = View.inflate(context, R.layout.toast, null);
+        final TextView textTitle = toastView.findViewById(R.id.filmTitle);
 
         final int pos = position;
         imgv.setOnTouchListener(new View.OnTouchListener() {
@@ -51,6 +60,10 @@ public class GalleryAdapter extends BaseAdapter {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 imgvMain.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 imgvMain.setImageResource(imgRes[pos]);
+                Toast toast = new Toast(context);
+                textTitle.setText(posterName[pos]);
+                toast.setView(toastView);
+                toast.show();
                 return false;
             }
         });
